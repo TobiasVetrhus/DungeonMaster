@@ -64,11 +64,8 @@ namespace DungeonMaster.Game
          */
         public void Start()
         {
-            bool isRunning = true;
-
-            while (isRunning)
-            {
-                string title = @"
+            Console.Clear();
+            string title = @"
             ______                                     ___  ___          _            
             |  _  \                                    |  \/  |         | |           
             | | | |_   _ _ __   __ _  ___  ___  _ __   | .  . | __ _ ___| |_ ___ _ __ 
@@ -79,27 +76,27 @@ namespace DungeonMaster.Game
                                |___/                                                  
             ";
 
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine(title);
-                Console.ResetColor();
-                Console.WriteLine("1. Create a New Hero");
-                Console.WriteLine("2. Exit");
-                int choice = GetUserChoice(1, 2);
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine(title);
+            Console.ResetColor();
+            Console.WriteLine("1. Create a New Hero");
+            Console.WriteLine("2. Exit");
+            int choice = GetUserChoice(1, 2);
 
-                switch (choice)
-                {
-                    case 1:
-                        selectedHero = CharacterCreation.CreateNewHero();
-                        MainMenu(); //Invokes the MainMenu method after a new hero is created.
-                        break;
-                    case 2:
-                        isRunning = false;
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Exiting...");
-                        Console.ResetColor();
-                        break;
-                }
+            switch (choice)
+            {
+                case 1:
+                    selectedHero = CharacterCreation.CreateNewHero();
+                    MainMenu(); //Invokes the MainMenu method after a new hero is created.
+                    break;
+                case 2:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Exiting...");
+                    Console.ResetColor();
+                    Environment.Exit(0); //Closes the terminal.
+                    break;
             }
+
         }
 
         /* Displays a menu with options for the user to
@@ -142,6 +139,7 @@ namespace DungeonMaster.Game
                         break;
                     case 5:
                         isMenuRunning = false;
+                        Start();
                         break;
                 }
             }
@@ -182,7 +180,10 @@ namespace DungeonMaster.Game
          */
         private void EquipWeaponOption()
         {
-            if (selectedHero != null)
+            Console.Clear();
+            bool returnToMainMenu = false;
+
+            while (selectedHero != null && !returnToMainMenu)
             {
                 Console.WriteLine("Available Weapons:");
                 Console.WriteLine("- - - - - - - -\n");
@@ -195,11 +196,6 @@ namespace DungeonMaster.Game
                 Console.WriteLine("Select a weapon to equip entering the corresponding number: ");
                 string weaponInput = Console.ReadLine();
 
-                if (weaponInput == "0")
-                {
-                    MainMenu();
-                }
-
                 if (int.TryParse(weaponInput, out int weaponChoice) && weaponChoice >= 1 && weaponChoice <= availableWeapons.Count)
                 {
                     Weapon selectedWeapon = availableWeapons[weaponChoice - 1];
@@ -210,20 +206,22 @@ namespace DungeonMaster.Game
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine($"You have equipped the {selectedWeapon.Name}.");
                         Console.ResetColor();
+                        break;
                     }
                     else
                     {
                         throw new InvalidWeaponException("The type cannot be used by this class or the weapon requires a higher level.\n");
                     }
                 }
+                else if (weaponInput == "0")
+                {
+                    returnToMainMenu = true;
+                    MainMenu();
+                }
                 else
                 {
                     Console.WriteLine("Invalid weapon selection.");
                 }
-            }
-            else
-            {
-                Console.WriteLine("No Hero is used.");
             }
         }
 
@@ -233,7 +231,10 @@ namespace DungeonMaster.Game
          */
         private void EquipArmorOption()
         {
-            if (selectedHero != null)
+            Console.Clear();
+            bool returnToMainMenu = false;
+
+            while (selectedHero != null && !returnToMainMenu)
             {
                 Console.WriteLine("Available Armor:");
                 Console.WriteLine("- - - - - - - -\n");
@@ -246,11 +247,6 @@ namespace DungeonMaster.Game
                 Console.WriteLine("Select armor to equip entering the corresponding number: ");
                 string armorInput = Console.ReadLine();
 
-                if (armorInput == "0")
-                {
-                    MainMenu();
-                }
-
                 if (int.TryParse(armorInput, out int armorChoice) && armorChoice >= 1 && armorChoice <= availableArmor.Count)
                 {
                     Armor selectedArmor = availableArmor[armorChoice - 1];
@@ -261,20 +257,22 @@ namespace DungeonMaster.Game
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine($"You have equipped {selectedArmor.Name}.");
                         Console.ResetColor();
+                        break;
                     }
                     else
                     {
                         throw new InvalidArmorException("The type cannot be used by this class or the weapon requires a higher level.\n");
                     }
                 }
+                else if (armorInput == "0")
+                {
+                    returnToMainMenu = true;
+                    MainMenu();
+                }
                 else
                 {
                     Console.WriteLine("Invalid armor selection.");
                 }
-            }
-            else
-            {
-                Console.WriteLine("No hero is used.");
             }
         }
 
