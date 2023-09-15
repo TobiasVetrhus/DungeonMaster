@@ -7,8 +7,8 @@ namespace DungeonMaster.HeroTypes
     public class Barbarian : Hero
     {
         //Valid Weapom amd Armor for the Barbarian class.
-        private static readonly List<WeaponType> validWeaponTypes = new List<WeaponType> { WeaponType.Mace, WeaponType.Sword, WeaponType.Hatchet };
-        private static readonly List<ArmorType> validArmorTypes = new List<ArmorType> { ArmorType.Mail, ArmorType.Plate };
+        private static readonly List<WeaponType> validWeaponTypes = new() { WeaponType.Mace, WeaponType.Sword, WeaponType.Hatchet };
+        private static readonly List<ArmorType> validArmorTypes = new() { ArmorType.Mail, ArmorType.Plate };
 
         //Initializes a new instance of the Barbarian class. Takes name as parameter.
         public Barbarian(string name) : base(name, validWeaponTypes, validArmorTypes)

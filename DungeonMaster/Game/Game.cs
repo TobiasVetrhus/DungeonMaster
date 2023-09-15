@@ -7,11 +7,11 @@ namespace DungeonMaster.Game
 {
     public class Game
     {
-        private Hero selectedHero;
+        private Hero? selectedHero;
 
         //Predefined List of available Weapons for the user to choose.
-        List<Weapon> availableWeapons = new List<Weapon>
-            {
+        readonly List<Weapon> availableWeapons = new()
+        {
                 new Weapon("Wooden Bow", 1, WeaponType.Bow, 15),
                 new Weapon("Common Hatchet", 1, WeaponType.Hatchet, 10),
                 new Weapon("Oak Staff", 2, WeaponType.Staff, 20),
@@ -34,11 +34,11 @@ namespace DungeonMaster.Game
                 new Weapon("Scepter of the Archmage", 14, WeaponType.Wand, 80),
                 new Weapon("Shadowstrike Dagger", 14, WeaponType.Dagger, 45),
                 new Weapon("Dragon Slayer", 15, WeaponType.Sword, 90)
-            };
+        };
 
         //Predefined List of available Armor for the user to choose. 
-        List<Armor> availableArmor = new List<Armor>
-            {
+        readonly List<Armor> availableArmor = new()
+        {
                 new Armor("Leather Vest", 1, ArmorType.Leather, new HeroAttribute(1, 3, 1), Slot.Body),
                 new Armor("Chainmail Coif", 2, ArmorType.Mail, new HeroAttribute(2, 1, 1), Slot.Head),
                 new Armor("Cloth Hood", 2, ArmorType.Cloth, new HeroAttribute(1, 2, 3), Slot.Head),
@@ -56,7 +56,7 @@ namespace DungeonMaster.Game
                 new Armor("Platinum Breastplate", 10, ArmorType.Plate, new HeroAttribute(5, 3, 5), Slot.Body),
                 new Armor("Fiery Cloak", 13, ArmorType.Cloth, new HeroAttribute(3, 6, 7), Slot.Body),
                 new Armor("Titanium Legguards", 15, ArmorType.Plate, new HeroAttribute(6, 4, 6), Slot.Legs)
-            };
+        };
 
         /*
          * When the program runs the Start() method is invoked to give the user
@@ -79,6 +79,11 @@ namespace DungeonMaster.Game
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine(title);
             Console.ResetColor();
+            Console.WriteLine("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("Tip: Input a number and press Enter to confirm selection...");
+            Console.ResetColor();
+            Console.WriteLine("- - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
             Console.WriteLine("1. Create a New Hero");
             Console.WriteLine("2. Exit");
             int choice = GetUserChoice(1, 2);
@@ -106,6 +111,11 @@ namespace DungeonMaster.Game
         public void MainMenu()
         {
             Console.Clear();
+            Console.WriteLine("- - - - - - ");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("Main Menu");
+            Console.ResetColor();
+            Console.WriteLine("- - - - - - ");
             bool isMenuRunning = true;
 
             while (isMenuRunning)
@@ -117,25 +127,22 @@ namespace DungeonMaster.Game
                 Console.WriteLine("3. Equip Weapon");
                 Console.WriteLine("4. Equip Armor");
                 Console.WriteLine("5. Return to start\n");
+
                 int choice = GetUserChoice(1, 5);
 
                 switch (choice)
                 {
                     case 1:
                         LevelUpOption();
-                        Console.ReadLine();
                         break;
                     case 2:
                         DisplayHeroOption();
-                        Console.ReadLine();
                         break;
                     case 3:
                         EquipWeaponOption();
-                        Console.ReadLine();
                         break;
                     case 4:
                         EquipArmorOption();
-                        Console.ReadLine();
                         break;
                     case 5:
                         isMenuRunning = false;
@@ -180,11 +187,11 @@ namespace DungeonMaster.Game
          */
         private void EquipWeaponOption()
         {
-            Console.Clear();
             bool returnToMainMenu = false;
 
             while (selectedHero != null && !returnToMainMenu)
             {
+                Console.Clear();
                 Console.WriteLine("Available Weapons:");
                 Console.WriteLine("- - - - - - - -\n");
                 for (int i = 0; i < availableWeapons.Count; i++)
@@ -200,17 +207,26 @@ namespace DungeonMaster.Game
                 {
                     Weapon selectedWeapon = availableWeapons[weaponChoice - 1];
 
-                    if (selectedHero.ValidWeaponTypes.Contains(selectedWeapon.WeaponType) && selectedHero.Level >= selectedWeapon.RequiredLevel)
+                    try
                     {
-                        selectedHero.EquipWeapon(selectedWeapon);
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine($"You have equipped the {selectedWeapon.Name}.");
-                        Console.ResetColor();
-                        break;
+                        if (selectedHero.ValidWeaponTypes.Contains(selectedWeapon.WeaponType) && selectedHero.Level >= selectedWeapon.RequiredLevel)
+                        {
+                            selectedHero.EquipWeapon(selectedWeapon);
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"You have equipped the {selectedWeapon.Name}.");
+                            Console.ResetColor();
+                            returnToMainMenu = true;
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            throw new InvalidWeaponException("The type cannot be used by this class or the weapon requires a higher level.\n");
+                        }
                     }
-                    else
+                    catch (InvalidWeaponException ex)
                     {
-                        throw new InvalidWeaponException("The type cannot be used by this class or the weapon requires a higher level.\n");
+                        Console.WriteLine($"Invalid weapon: {ex.Message}");
+                        break;
                     }
                 }
                 else if (weaponInput == "0")
@@ -231,11 +247,11 @@ namespace DungeonMaster.Game
          */
         private void EquipArmorOption()
         {
-            Console.Clear();
             bool returnToMainMenu = false;
 
             while (selectedHero != null && !returnToMainMenu)
             {
+                Console.Clear();
                 Console.WriteLine("Available Armor:");
                 Console.WriteLine("- - - - - - - -\n");
                 for (int i = 0; i < availableArmor.Count; i++)
@@ -251,17 +267,25 @@ namespace DungeonMaster.Game
                 {
                     Armor selectedArmor = availableArmor[armorChoice - 1];
 
-                    if (selectedHero.ValidArmorTypes.Contains(selectedArmor.ArmorType) && selectedHero.Level >= selectedArmor.RequiredLevel)
+                    try
                     {
-                        selectedHero.EquipArmor(selectedArmor);
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine($"You have equipped {selectedArmor.Name}.");
-                        Console.ResetColor();
-                        break;
+                        if (selectedHero.ValidArmorTypes.Contains(selectedArmor.ArmorType) && selectedHero.Level >= selectedArmor.RequiredLevel)
+                        {
+                            selectedHero.EquipArmor(selectedArmor);
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"You have equipped {selectedArmor.Name}.");
+                            Console.ResetColor();
+                            returnToMainMenu = true;
+                        }
+                        else
+                        {
+                            throw new InvalidArmorException("The type cannot be used by this class or the armor requires a higher level.\n");
+                        }
                     }
-                    else
+                    catch (InvalidArmorException ex)
                     {
-                        throw new InvalidArmorException("The type cannot be used by this class or the weapon requires a higher level.\n");
+                        Console.WriteLine($"Invalid armor: {ex.Message}");
+                        break;
                     }
                 }
                 else if (armorInput == "0")

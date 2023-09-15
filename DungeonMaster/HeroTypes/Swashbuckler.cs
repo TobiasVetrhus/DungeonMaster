@@ -7,8 +7,8 @@ namespace DungeonMaster.HeroTypes
     public class Swashbuckler : Hero
     {
         //Valid Weapon and Armor types for the Swashbuckler class.
-        private static readonly List<WeaponType> validWeaponTypes = new List<WeaponType> { WeaponType.Dagger, WeaponType.Sword };
-        private static readonly List<ArmorType> validArmorTypes = new List<ArmorType> { ArmorType.Leather, ArmorType.Mail };
+        private static readonly List<WeaponType> validWeaponTypes = new() { WeaponType.Dagger, WeaponType.Sword };
+        private static readonly List<ArmorType> validArmorTypes = new() { ArmorType.Leather, ArmorType.Mail };
 
         //Initializes a new instance of the Swashbuckler class. Takes name as parameter.
         public Swashbuckler(string name) : base(name, validWeaponTypes, validArmorTypes)

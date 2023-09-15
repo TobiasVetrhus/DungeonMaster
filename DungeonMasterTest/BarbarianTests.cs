@@ -11,7 +11,7 @@ namespace DungeonMaster.Tests
             string name = "Tommy";
 
             //Act
-            Barbarian barbarian = new Barbarian(name);
+            Barbarian barbarian = new(name);
 
             //Assert
             Assert.Equal(name, barbarian.Name);
@@ -27,7 +27,7 @@ namespace DungeonMaster.Tests
             string name = "Tommy";
 
             //Act
-            Barbarian barbarian = new Barbarian(name);
+            Barbarian barbarian = new(name);
             barbarian.LevelUp();
 
             //Assert

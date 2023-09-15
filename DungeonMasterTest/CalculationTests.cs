@@ -1,5 +1,4 @@
-﻿
-using DungeonMaster.Enums;
+﻿using DungeonMaster.Enums;
 using DungeonMaster.Equipment;
 using DungeonMaster.HeroBase;
 using DungeonMaster.HeroTypes;
@@ -12,7 +11,7 @@ namespace DungeonMaster.Tests
         public void Calculate_Total_Attributes_No_Equipment()
         {
             // Arrange
-            Barbarian barbarian = new Barbarian("Tommy");
+            Barbarian barbarian = new("Tommy");
 
             // Act
             HeroAttribute totalAttributes = barbarian.CalculateTotalAttributes();
@@ -27,8 +26,8 @@ namespace DungeonMaster.Tests
         public void Calculate_Total_Attributes_One_Piece_Of_Armor()
         {
             // Arrange
-            Barbarian barbarian = new Barbarian("Tommy");
-            Armor armor = new Armor("Common Plate Chest", 1, ArmorType.Plate, new HeroAttribute(1, 0, 0), Slot.Body);
+            Barbarian barbarian = new("Tommy");
+            Armor armor = new("Common Plate Chest", 1, ArmorType.Plate, new HeroAttribute(1, 0, 0), Slot.Body);
             barbarian.EquipArmor(armor);
 
             // Act
@@ -44,9 +43,9 @@ namespace DungeonMaster.Tests
         public void Calculate_Total_Attributes_Two_Pieces_Of_Armor()
         {
             // Arrange
-            Barbarian barbarian = new Barbarian("Tommy");
-            Armor armor1 = new Armor("Common Plate Chest", 1, ArmorType.Plate, new HeroAttribute(1, 0, 0), Slot.Body);
-            Armor armor2 = new Armor("Common Plate Legs", 1, ArmorType.Plate, new HeroAttribute(1, 0, 0), Slot.Legs);
+            Barbarian barbarian = new("Tommy");
+            Armor armor1 = new("Common Plate Chest", 1, ArmorType.Plate, new HeroAttribute(1, 0, 0), Slot.Body);
+            Armor armor2 = new("Common Plate Legs", 1, ArmorType.Plate, new HeroAttribute(1, 0, 0), Slot.Legs);
             barbarian.EquipArmor(armor1);
             barbarian.EquipArmor(armor2);
 
@@ -63,14 +62,14 @@ namespace DungeonMaster.Tests
         public void Calculate_Total_Attributes_Replaced_Armor()
         {
             // Arrange
-            Barbarian barbarian = new Barbarian("Tommy");
-            Armor armor1 = new Armor("Common Plate Chest", 1, ArmorType.Plate, new HeroAttribute(1, 0, 0), Slot.Body);
-            Armor armor2 = new Armor("Common Plate Legs", 1, ArmorType.Plate, new HeroAttribute(1, 0, 0), Slot.Legs);
+            Barbarian barbarian = new("Tommy");
+            Armor armor1 = new("Common Plate Chest", 1, ArmorType.Plate, new HeroAttribute(1, 0, 0), Slot.Body);
+            Armor armor2 = new("Common Plate Legs", 1, ArmorType.Plate, new HeroAttribute(1, 0, 0), Slot.Legs);
             barbarian.EquipArmor(armor1);
             barbarian.EquipArmor(armor2);
 
             // Replacing armor in the same slot
-            Armor newArmor = new Armor("Improved Plate Chest", 1, ArmorType.Plate, new HeroAttribute(2, 0, 0), Slot.Body);
+            Armor newArmor = new("Improved Plate Chest", 1, ArmorType.Plate, new HeroAttribute(2, 0, 0), Slot.Body);
             barbarian.EquipArmor(newArmor);
 
             // Act
@@ -86,7 +85,7 @@ namespace DungeonMaster.Tests
         public void Calculate_Damage_No_Weapon_Equipped()
         {
             // Arrange
-            Barbarian barbarian = new Barbarian("Tommy");
+            Barbarian barbarian = new("Tommy");
 
             // Act
             double damage = barbarian.CalculateDamage();
@@ -99,8 +98,8 @@ namespace DungeonMaster.Tests
         public void Calculate_Damage_With_Weapon_Equipped()
         {
             // Arrange
-            Barbarian barbarian = new Barbarian("Tommy");
-            Weapon weapon = new Weapon("Common Hatchet", 1, WeaponType.Hatchet, 2);
+            Barbarian barbarian = new("Tommy");
+            Weapon weapon = new("Common Hatchet", 1, WeaponType.Hatchet, 2);
             barbarian.EquipWeapon(weapon);
 
             // Act
@@ -114,9 +113,9 @@ namespace DungeonMaster.Tests
         public void Calculate_Damage_Replaced_Weapon()
         {
             // Arrange
-            Barbarian barbarian = new Barbarian("Conan");
-            Weapon weapon1 = new Weapon("Common Hatchet", 1, WeaponType.Hatchet, 2);
-            Weapon weapon2 = new Weapon("Improved Hatchet", 1, WeaponType.Hatchet, 3);
+            Barbarian barbarian = new("Conan");
+            Weapon weapon1 = new("Common Hatchet", 1, WeaponType.Hatchet, 2);
+            Weapon weapon2 = new("Improved Hatchet", 1, WeaponType.Hatchet, 3);
             barbarian.EquipWeapon(weapon1);
 
             // Replacing weapon
@@ -133,9 +132,9 @@ namespace DungeonMaster.Tests
         public void Calculate_Damage_Weapon_And_Armor_Equipped()
         {
             // Arrange
-            Barbarian barbarian = new Barbarian("Tommy");
-            Weapon weapon = new Weapon("Common Hatchet", 1, WeaponType.Hatchet, 2);
-            Armor armor = new Armor("Common Plate Chest", 1, ArmorType.Plate, new HeroAttribute(1, 0, 0), Slot.Body);
+            Barbarian barbarian = new("Tommy");
+            Weapon weapon = new("Common Hatchet", 1, WeaponType.Hatchet, 2);
+            Armor armor = new("Common Plate Chest", 1, ArmorType.Plate, new HeroAttribute(1, 0, 0), Slot.Body);
             barbarian.EquipWeapon(weapon);
             barbarian.EquipArmor(armor);
 

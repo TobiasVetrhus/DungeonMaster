@@ -146,7 +146,7 @@ namespace DungeonMaster.HeroBase
         /// <returns>Returns the built string.</returns>
         public string ListEquippedItems()
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new();
 
             bool hasEquippedArmor = false;
             bool hasEquippedWeapon = false;

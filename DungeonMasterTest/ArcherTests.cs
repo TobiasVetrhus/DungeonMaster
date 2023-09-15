@@ -11,7 +11,7 @@ namespace DungeonMaster.Tests
             string name = "Legolas";
 
             //Act
-            Archer archer = new Archer(name);
+            Archer archer = new(name);
 
             //Assert
             Assert.Equal(name, archer.Name);
@@ -28,7 +28,7 @@ namespace DungeonMaster.Tests
             string name = "Legolas";
 
             //Act
-            Archer archer = new Archer(name);
+            Archer archer = new(name);
             archer.LevelUp();
 
             //Assert

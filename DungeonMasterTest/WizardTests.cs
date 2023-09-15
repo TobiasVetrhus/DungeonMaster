@@ -13,7 +13,7 @@ namespace DungeonMasterTest
             string name = "Gandalf";
 
             //Act
-            Wizard wizard = new Wizard(name);
+            Wizard wizard = new(name);
 
             //Assert
             Assert.Equal(name, wizard.Name);
@@ -30,7 +30,7 @@ namespace DungeonMasterTest
             string name = "Gandalf";
 
             //Act
-            Wizard wizard = new Wizard(name);
+            Wizard wizard = new(name);
             wizard.LevelUp();
 
             //Assert

@@ -16,7 +16,7 @@ namespace DungeonMaster.Tests
             int weaponDamage = 2;
 
             //Act
-            Weapon weapon = new Weapon(name, requiredLevel, weaponType, weaponDamage);
+            Weapon weapon = new(name, requiredLevel, weaponType, weaponDamage);
 
             //Assert
             Assert.Equal(name, weapon.Name);

@@ -7,8 +7,8 @@ namespace DungeonMaster.HeroTypes
     public class Wizard : Hero
     {
         //Valid Weapon and Armor types for the Wizard class.
-        private static readonly List<WeaponType> validWeaponTypes = new List<WeaponType> { WeaponType.Staff, WeaponType.Wand };
-        private static readonly List<ArmorType> validArmorTypes = new List<ArmorType> { ArmorType.Cloth };
+        private static readonly List<WeaponType> validWeaponTypes = new() { WeaponType.Staff, WeaponType.Wand };
+        private static readonly List<ArmorType> validArmorTypes = new() { ArmorType.Cloth };
 
         //Initializes a new instance of the Wizard class. Takes name as parameter.
         public Wizard(string name) : base(name, validWeaponTypes, validArmorTypes)

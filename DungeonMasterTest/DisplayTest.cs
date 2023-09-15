@@ -13,7 +13,7 @@ namespace DungeonMaster.Tests
         {
             // Arrange
             string name = "Tommy";
-            Barbarian barbarian = new Barbarian(name);
+            Barbarian barbarian = new(name);
             barbarian.EquipWeapon(new Weapon("Common Hatchet", 1, WeaponType.Hatchet, 2));
             barbarian.EquipArmor(new Armor("Common Plate Chest", 1, ArmorType.Plate, new HeroAttribute(1, 0, 0), Slot.Body));
 

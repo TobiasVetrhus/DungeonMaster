@@ -11,7 +11,7 @@ namespace DungeonMaster.Tests
             string name = "Noah";
 
             //Act
-            Swashbuckler swashbuckler = new Swashbuckler(name);
+            Swashbuckler swashbuckler = new(name);
 
             //Assert
             Assert.Equal(name, swashbuckler.Name);
@@ -27,7 +27,7 @@ namespace DungeonMaster.Tests
             string name = "Noah";
 
             //Act
-            Swashbuckler swashbuckler = new Swashbuckler(name);
+            Swashbuckler swashbuckler = new(name);
             swashbuckler.LevelUp();
 
             //Assert

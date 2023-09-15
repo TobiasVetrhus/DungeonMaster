@@ -50,21 +50,14 @@ namespace DungeonMaster.Game
 
 
             //Creates an object of a specific Hero subclass depending on the user input. 
-            Hero newHero;
-            switch (choice)
+            Hero newHero = choice switch
             {
-                case 1:
-                    newHero = new Wizard(heroName); break;
-                case 2:
-                    newHero = new Archer(heroName); break;
-                case 3:
-                    newHero = new Barbarian(heroName); break;
-                case 4:
-                    newHero = new Swashbuckler(heroName); break;
-                default:
-                    throw new InvalidOperationException("Invalid hero class choice.");
-            }
-
+                1 => new Wizard(heroName),
+                2 => new Archer(heroName),
+                3 => new Barbarian(heroName),
+                4 => new Swashbuckler(heroName),
+                _ => throw new InvalidOperationException("Invalid hero class choice."),
+            };
             Console.WriteLine($"\nYour hero, {heroName}, has been created!\n");
             Console.WriteLine("Press Enter to continue...");
             Console.ReadLine();

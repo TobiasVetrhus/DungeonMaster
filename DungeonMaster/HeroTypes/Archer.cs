@@ -7,8 +7,8 @@ namespace DungeonMaster.HeroTypes
     public class Archer : Hero
     {
         //Valid Weapon and Armor types for the Archer class.
-        private static readonly List<WeaponType> validWeaponTypes = new List<WeaponType> { WeaponType.Bow };
-        private static readonly List<ArmorType> validArmorTypes = new List<ArmorType> { ArmorType.Leather, ArmorType.Mail };
+        private static readonly List<WeaponType> validWeaponTypes = new() { WeaponType.Bow };
+        private static readonly List<ArmorType> validArmorTypes = new() { ArmorType.Leather, ArmorType.Mail };
 
         //Initializes a new instance of the Archer class. Takes name as parameter.
         public Archer(string name) : base(name, validWeaponTypes, validArmorTypes)
